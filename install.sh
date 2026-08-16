@@ -5,7 +5,7 @@
 set -u
 
 PLUGIN_PKG="enigma2-plugin-extensions-ultrastalker"
-IPK_NAME="UltraStalker_FINAL_Public_Production_Dependencies_all.ipk"
+IPK_NAME="UltraStalker_FINAL_Public_all.ipk"
 # CHANGE THIS after uploading the IPK to your GitHub Release:
 IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/latest/download/${IPK_NAME}"
 TMP_IPK="/tmp/${IPK_NAME}"
