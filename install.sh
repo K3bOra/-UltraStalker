@@ -5,9 +5,9 @@
 set -u
 
 PLUGIN_PKG="enigma2-plugin-extensions-ultrastalker"
-IPK_NAME="UltraStalker_V7_FINAL.ipk"
+IPK_NAME="UltraStalker_V7_UPDATE.ipk"
 # CHANGE THIS after uploading the IPK to your GitHub Release:
-IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/latest/download/${IPK_NAME}"
+IPK_URL="IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${IPK_NAME}""
 TMP_IPK="/tmp/${IPK_NAME}"
 DEPS="python3-core python3-sqlite3 python3-pillow"
 
@@ -30,11 +30,11 @@ else
 fi
 
 case "$PYVER" in
-    3.13|3.14)
+    3.12|3.13|3.14)
         say "[OK] Python $PYVER detected."
         ;;
     *)
-        fail "Unsupported Python version: ${PYVER:-not found}. Ultra Stalker requires Python 3.13 or 3.14."
+        fail "Unsupported Python version: ${PYVER:-not found}. Ultra Stalker requires Python 3.12, 3.13 or 3.14."
         ;;
 esac
 
