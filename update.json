@@ -1,0 +1,7 @@
+{
+  "version": "7.0.5",
+  "name": "Ultra Stalker V7",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v7.0.5/UltraStalker_V7_UPDATE.ipk",
+  "sha256": "1cf2239eec80bdfa0f1da81ca4c326a3b37897f3389c4bb381387441bf8a85f4",
+  "notes": "Online updater enabled. Python 3.12/3.13/3.14 support, Web Control Center, Free Portal and Free Xtream libraries preserved."
+}
