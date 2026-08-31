@@ -1,7 +1,7 @@
 {
-  "version": "7.0.5",
+  "version": "7.0.8",
   "name": "Ultra Stalker V7",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v7.0.5/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "1cf2239eec80bdfa0f1da81ca4c326a3b37897f3389c4bb381387441bf8a85f4",
-  "notes": "Online updater enabled. Python 3.12/3.13/3.14 support, Web Control Center, Free Portal and Free Xtream libraries preserved."
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_0_8_Manual_Hero_Stale_Worker_Guard.ipk",
+  "sha256": "a3d8d562482de8f41bd183d14a5d08c886198dd35be1c4092645eea90bfbd556",
+  "notes": "Fixed manual Home Hero pin being overwritten by stale automatic Hero workers. Automatic Hero rotation remains disabled."
 }
