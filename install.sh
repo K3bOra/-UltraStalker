@@ -7,7 +7,7 @@ set -u
 PLUGIN_PKG="enigma2-plugin-extensions-ultrastalker"
 IPK_NAME="UltraStalker_V7_UPDATE.ipk"
 # CHANGE THIS after uploading the IPK to your GitHub Release:
-IPK_URL="IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${IPK_NAME}""
+IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${IPK_NAME}""
 TMP_IPK="/tmp/${IPK_NAME}"
 DEPS="python3-core python3-sqlite3 python3-pillow"
 
