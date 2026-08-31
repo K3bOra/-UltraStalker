@@ -1,7 +1,7 @@
 {
-  "version": "7.0.6",
+  "version": "7.0.5",
   "name": "Ultra Stalker V7",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_0_6_Live_Folder_Export_Fix.ipk",
-  "sha256": "fcbabafc5c7a7dcbc967eb3b9ec09b002d7035662e6cd658ba1af0777812527f",
-  "notes": "Fixed Live TV folder export to external bouquets. Export now keeps the current folder position and correctly refreshes TV bouquets."
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v7.0.5/UltraStalker_V7_UPDATE.ipk",
+  "sha256": "1cf2239eec80bdfa0f1da81ca4c326a3b37897f3389c4bb381387441bf8a85f4",
+  "notes": "Online updater enabled. Python 3.12/3.13/3.14 support, Web Control Center, Free Portal and Free Xtream libraries preserved."
 }
