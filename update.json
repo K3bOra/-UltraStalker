@@ -1,7 +1,7 @@
 {
-  "version": "7.0.8",
-  "name": "Ultra Stalker V7",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_0_8_Manual_Hero_Stale_Worker_Guard.ipk",
-  "sha256": "a3d8d562482de8f41bd183d14a5d08c886198dd35be1c4092645eea90bfbd556",
-  "notes": "Fixed manual Home Hero pin being overwritten by stale automatic Hero workers. Automatic Hero rotation remains disabled."
+  "version": "7.1",
+  "name": "Ultra Stalker V7.1",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v7.1/UltraStalker_V7_UPDATE.ipk",
+  "sha256": "d7f016439c17670bbcab0405766af71cb033610a06623850507817072491c166",
+  "notes": "Ultra Stalker V7.1 stable release. Poster Grid V2 with persistent HQ Title Logo handoff, original Poster Grid preserved, Cinematic and Backdrop Grid preserved, Free Portal and Free Xtream libraries included."
 }
