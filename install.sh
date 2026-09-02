@@ -3,7 +3,7 @@ set -e
 
 REPO="https://github.com/K3bOra/-UltraStalker"
 TAG="v10.0.60"
-IPK_URL="$REPO/releases/download/$TAG/UltraStalker_V7.1.2.ipk"
+IPK_URL="$REPO/releases/download/$TAG/UltraStalker_V7_UPDATE.ipk"
 EXPECTED_SHA256="312172be2fc66bb190230977b3a6686ac0f0e21bbb12e0bcdc502febf657fad3"
 TMP_IPK="/tmp/UltraStalker_V7_UPDATE.ipk"
 
