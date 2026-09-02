@@ -3,9 +3,9 @@ set -eu
 
 REPO="https://github.com/K3bOra/-UltraStalker"
 TAG="v10.0.60"
-ASSET="UltraStalker_V7.1.6.ipk"
+ASSET="UltraStalker_V7.2.2.ipk"
 IPK_URL="$REPO/releases/download/$TAG/$ASSET"
-EXPECTED_SHA256="fb974095dd24ca2f41d20b78e5280aafa9aebe1732a4ae77be842c78c9cf84d2"
+EXPECTED_SHA256="64326a45f64787c707734b45608b0a9cd8bff5a1f0beb33030a867c54cc09e0f"
 TMP_IPK="/tmp/$ASSET"
 TMP_PART="$TMP_IPK.part"
 
@@ -31,10 +31,8 @@ elif command -v curl >/dev/null 2>&1; then
 else
     fail "Neither wget nor curl is available"
 fi
-
 [ -s "$TMP_PART" ] || fail "Downloaded package is empty"
 mv "$TMP_PART" "$TMP_IPK"
-
 if command -v sha256sum >/dev/null 2>&1; then
     ACTUAL_SHA256="$(sha256sum "$TMP_IPK" | awk '{print $1}')"
 elif command -v busybox >/dev/null 2>&1; then
@@ -44,10 +42,8 @@ elif command -v openssl >/dev/null 2>&1; then
 else
     fail "No SHA256 tool found"
 fi
-
 [ "$ACTUAL_SHA256" = "$EXPECTED_SHA256" ] || fail "SHA256 mismatch: got $ACTUAL_SHA256"
 log "SHA256 OK"
-
 command -v opkg >/dev/null 2>&1 || fail "opkg not found"
 log "Installing $ASSET..."
 opkg install --force-reinstall "$TMP_IPK" || opkg install "$TMP_IPK" || fail "opkg install failed"

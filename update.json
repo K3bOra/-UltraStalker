@@ -1,7 +1,7 @@
 {
-  "version": "7.1.6",
-  "name": "Ultra Stalker V7.1.6",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.1.6.ipk",
-  "sha256": "fb974095dd24ca2f41d20b78e5280aafa9aebe1732a4ae77be842c78c9cf84d2",
-  "notes": "Today’s update: larger cleaner Home Title Logos using Backdrop Grid artwork • improved Backdrop Grid remote actions • fully smart UP/DOWN navigation, including short last pages and wrap from any poster on the first/last page • fixed poster frames resized cleanly around posters • Adaptive focus frame matches the fixed frame exactly while keeping its dynamic glow and color • redesigned premium glass Update screen."
+  "version": "7.2.2",
+  "name": "Ultra Stalker V7.2.2",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.2.2.ipk",
+  "sha256": "64326a45f64787c707734b45608b0a9cd8bff5a1f0beb33030a867c54cc09e0f",
+  "notes": "Fixes Settings input compatibility on stricter Enigma2 images, including SubDL, Fanart, TMDb, PIN and other text-entry screens. Includes the V7.2 performance and Backdrop display-ready fixes."
 }
