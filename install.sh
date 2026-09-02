@@ -3,9 +3,9 @@ set -eu
 
 REPO="https://github.com/K3bOra/-UltraStalker"
 TAG="v10.0.60"
-ASSET="UltraStalker_V7.1.5.ipk"
+ASSET="UltraStalker_V7.1.6.ipk"
 IPK_URL="$REPO/releases/download/$TAG/$ASSET"
-EXPECTED_SHA256="321307dd2d00fd63b501282b80a73933f6fb9ee78e6f79aa59290f31a1e3670d"
+EXPECTED_SHA256="fb974095dd24ca2f41d20b78e5280aafa9aebe1732a4ae77be842c78c9cf84d2"
 TMP_IPK="/tmp/$ASSET"
 TMP_PART="$TMP_IPK.part"
 
