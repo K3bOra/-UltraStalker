@@ -1,7 +1,7 @@
 {
-  "version": "7.1.2",
-  "name": "Ultra Stalker V7.1.2",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.1.2.ipk",
-  "sha256": "312172be2fc66bb190230977b3a6686ac0f0e21bbb12e0bcdc502febf657fad3",
-  "notes": "Backdrop Grid: square poster frames and smart last-page vertical navigation."
+  "version": "7.1.3",
+  "name": "Ultra Stalker V7.1.3",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.1.3.ipk",
+  "sha256": "b0efe9dc9d7fa0cd5ed963ba0cd817f3c54f0da7c15db0ac69b14a5142c719c2",
+  "notes": "Bigger clean Home Title Logos from Backdrop Grid • smarter UP/DOWN navigation, including short last pages and wrap from the final item to the first • square poster borders fitted exactly to posters • redesigned premium glass Update screen with green Update and red Back buttons."
 }

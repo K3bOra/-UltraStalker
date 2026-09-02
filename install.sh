@@ -3,24 +3,15 @@ set -eu
 
 REPO="https://github.com/K3bOra/-UltraStalker"
 TAG="v10.0.60"
-ASSET="UltraStalker_V7.1.2.ipk"
+ASSET="UltraStalker_V7.1.3.ipk"
 IPK_URL="$REPO/releases/download/$TAG/$ASSET"
-EXPECTED_SHA256="312172be2fc66bb190230977b3a6686ac0f0e21bbb12e0bcdc502febf657fad3"
+EXPECTED_SHA256="b0efe9dc9d7fa0cd5ed963ba0cd817f3c54f0da7c15db0ac69b14a5142c719c2"
 TMP_IPK="/tmp/$ASSET"
 TMP_PART="$TMP_IPK.part"
 
-log() {
-    echo "[UltraStalker] $*"
-}
-
-fail() {
-    echo "[UltraStalker] ERROR: $*" >&2
-    exit 1
-}
-
-cleanup() {
-    rm -f "$TMP_PART"
-}
+log() { echo "[UltraStalker] $*"; }
+fail() { echo "[UltraStalker] ERROR: $*" >&2; exit 1; }
+cleanup() { rm -f "$TMP_PART"; }
 trap cleanup EXIT INT TERM
 
 command -v python3 >/dev/null 2>&1 || fail "python3 not found"
