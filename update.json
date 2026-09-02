@@ -1,6 +1,6 @@
 {
   "version": "7.1.2",
-  "name": "Ultra Stalker V7.1.2",
+  "name": "UltraStalker_V7.1.2",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.1.2.ipk",
   "sha256": "312172be2fc66bb190230977b3a6686ac0f0e21bbb12e0bcdc502febf657fad3",
   "notes": "Backdrop Grid: square poster frames that fit the poster exactly, plus smart DOWN navigation to the last partial page from any poster in the previous page."
