@@ -1,7 +1,7 @@
 {
-  "version": "7.3",
-  "name": "Ultra Stalker V7.3",
+  "version": "7.3.1",
+  "name": "Ultra Stalker V7.3.1 Hotfix",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "ca6570666a87ca8fc5d16f20f439bb5de6a9393eeee8a05deebddf3ee0d3c16e",
-  "notes": "Ultra Stalker V7.3 final cumulative release. Built from the latest V7.3.1 staging state and preserves all approved Player, navigation and persistent artwork work. Adds Settings > Refresh Content for the currently selected Portal, Xtream or M3U source: Portal catalogue caches are source-versioned, Xtream catalogue/category/series-info caches are refreshed, and direct M3U playlists are downloaded and rebuilt fresh without deleting persistent artwork, TMDB metadata or title logos."
+  "sha256": "047f377a6c6fe90b8f18fb10ad1000624af846aa51b946e4a4ca44d34e10acbe",
+  "notes": "Ultra Stalker V7.3.1 hotfix for the public V7.3 release. Preserves all approved V7.3 work and fixes the Settings Refresh Content crash by wiring _refresh_current_content into NovaSettingsScreen. Refresh remains source-local for Portal, Xtream and M3U and does not delete persistent artwork, TMDB metadata or title logos."
 }
