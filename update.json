@@ -1,7 +1,7 @@
 {
-  "version": "7.2.5",
-  "name": "Ultra Stalker V7.2.5",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.2.5.ipk",
-  "sha256": "36966bc0610d19c82907446540829a3adfbb0bb608f997f78ffe773c94ea30ca",
-  "notes": "Updater recovery fix for Enigma2/opkg builds that reject an existing local IPK with No candidates to install. Keeps normal opkg first, then safely installs the SHA256-verified Ultra Stalker payload through an atomic recovery path only for that solver bug. Includes all V7.2.x performance, artwork and settings fixes."
+  "version": "7.3",
+  "name": "Ultra Stalker V7.3",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
+  "sha256": "ca6570666a87ca8fc5d16f20f439bb5de6a9393eeee8a05deebddf3ee0d3c16e",
+  "notes": "Ultra Stalker V7.3 final cumulative release. Built from the latest V7.3.1 staging state and preserves all approved Player, navigation and persistent artwork work. Adds Settings > Refresh Content for the currently selected Portal, Xtream or M3U source: Portal catalogue caches are source-versioned, Xtream catalogue/category/series-info caches are refreshed, and direct M3U playlists are downloaded and rebuilt fresh without deleting persistent artwork, TMDB metadata or title logos."
 }
