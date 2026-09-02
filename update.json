@@ -1,7 +1,7 @@
 {
-  "version": "7.2.4",
-  "name": "Ultra Stalker V7.2.4",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.2.4.ipk",
-  "sha256": "32ae2900d5ce8df14220a7c5767329016c491ca409d60941eda5107c1ab0b92b",
-  "notes": "Fixes Enigma2/OpenBH online-update installation failures by keeping the real release IPK filename, validating the archive, and using robust opkg force-reinstall fallbacks. Includes all V7.2.x performance, artwork and settings fixes."
+  "version": "7.2.5",
+  "name": "Ultra Stalker V7.2.5",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7.2.5.ipk",
+  "sha256": "36966bc0610d19c82907446540829a3adfbb0bb608f997f78ffe773c94ea30ca",
+  "notes": "Updater recovery fix for Enigma2/opkg builds that reject an existing local IPK with No candidates to install. Keeps normal opkg first, then safely installs the SHA256-verified Ultra Stalker payload through an atomic recovery path only for that solver bug. Includes all V7.2.x performance, artwork and settings fixes."
 }
