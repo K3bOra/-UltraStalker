@@ -1,7 +1,7 @@
 {
   "version": "7.4",
   "name": "Ultra Stalker V7.4",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v7.4/UltraStalker_V7.4.ipk",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
   "sha256": "84b09c914f37c94153656e9159bddf460cafb72e5510450f68b6e84a566ed31b",
   "notes": "Ultra Stalker V7.4 clean cumulative online release. This update includes the Web Connection Manager and API, true saved-source reordering, global source numbering, careful visible-branding cleanup while preserving compatibility, performance cleanup on the clean baseline, folder Search fixes, Adaptive Hero color synchronization across Portal, Home and Categories, compact high-clarity adaptive MAC styling, and Global Search Hero background restoration. Live and Player playback behavior remain unchanged on the approved clean baseline."
 }
