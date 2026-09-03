@@ -5,14 +5,14 @@ REPO="https://github.com/K3bOra/-UltraStalker"
 TAG="v10.0.60"
 ASSET="UltraStalker_V7_UPDATE.ipk"
 URL="$REPO/releases/download/$TAG/$ASSET"
-SHA256="047f377a6c6fe90b8f18fb10ad1000624af846aa51b946e4a4ca44d34e10acbe"
-VERSION="7.3.1"
+SHA256="84b09c914f37c94153656e9159bddf460cafb72e5510450f68b6e84a566ed31b"
+VERSION="7.4"
 IPK="/tmp/$ASSET"
 PART="$IPK.part"
 OPKG_OUT="/tmp/UltraStalker_install_opkg.log"
 
-log() { echo "[UltraStalker V7.3.1] $*"; }
-fail() { echo "[UltraStalker V7.3.1] ERROR: $*" >&2; exit 1; }
+log() { echo "[UltraStalker V7.4] $*"; }
+fail() { echo "[UltraStalker V7.4] ERROR: $*" >&2; exit 1; }
 
 restart_enigma2() {
     if command -v pidof >/dev/null 2>&1 && pidof enigma2 >/dev/null 2>&1; then
@@ -201,7 +201,7 @@ try:
 finally:
     shutil.rmtree(new,ignore_errors=True)
 
-print('[UltraStalker V7.3.1] Verified atomic payload installed successfully: V'+version)
+print('[UltraStalker V7.4] Verified atomic payload installed successfully: V'+version)
 PY
 
 # Mirror package postinst side effects for the recovery path. Persistent HDD

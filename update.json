@@ -1,7 +1,7 @@
 {
-  "version": "7.3.1",
-  "name": "Ultra Stalker V7.3.1 Hotfix",
+  "version": "7.4",
+  "name": "Ultra Stalker V7.4",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "047f377a6c6fe90b8f18fb10ad1000624af846aa51b946e4a4ca44d34e10acbe",
-  "notes": "Ultra Stalker V7.3.1 hotfix for the public V7.3 release. Preserves all approved V7.3 work and fixes the Settings Refresh Content crash by wiring _refresh_current_content into NovaSettingsScreen. Refresh remains source-local for Portal, Xtream and M3U and does not delete persistent artwork, TMDB metadata or title logos."
+  "sha256": "84b09c914f37c94153656e9159bddf460cafb72e5510450f68b6e84a566ed31b",
+  "notes": "Ultra Stalker V7.4 clean cumulative online release. This update consolidates the Web Connection Manager and API, true saved-source reordering, global source numbering, careful visible-branding cleanup while preserving compatibility, performance cleanup by returning to the clean baseline, folder Search fixes, Adaptive Hero color synchronization across Portal, Home and Categories, compact high-clarity adaptive MAC styling, and Global Search Hero background restoration. Live and Player playback behavior remain on the approved clean baseline."
 }
