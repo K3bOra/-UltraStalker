@@ -1,7 +1,7 @@
 {
-  "version": "7.4",
-  "name": "Ultra Stalker V7.4",
+  "version": "7.5",
+  "name": "Ultra Stalker V7.5",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "84b09c914f37c94153656e9159bddf460cafb72e5510450f68b6e84a566ed31b",
-  "notes": "Ultra Stalker V7.4 clean cumulative online release. This update includes the Web Connection Manager and API, true saved-source reordering, global source numbering, careful visible-branding cleanup while preserving compatibility, performance cleanup on the clean baseline, folder Search fixes, Adaptive Hero color synchronization across Portal, Home and Categories, compact high-clarity adaptive MAC styling, and Global Search Hero background restoration. Live and Player playback behavior remain unchanged on the approved clean baseline."
+  "sha256": "9650246680056e11fac0af060290213e6e6408cf300477067d446b16d3e82944",
+  "notes": "Ultra Stalker V7.5 clean cumulative release. Includes Web Manager/API and true source reordering, current-source-first fast Global Search, clean Live/Movies/Series receiver export with hierarchical Series, polished Premium Live picons, Adaptive Hero/MAC refinements, dependency/preflight cleanup, safer worker shutdown, clean bouquet names, and clearer install/restart feedback."
 }
