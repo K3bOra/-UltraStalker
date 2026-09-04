@@ -1,7 +1,7 @@
 {
-  "version": "7.5",
-  "name": "Ultra Stalker V7.5",
+  "version": "7.6",
+  "name": "Ultra Stalker V7.6",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "9650246680056e11fac0af060290213e6e6408cf300477067d446b16d3e82944",
-  "notes": "Ultra Stalker V7.5 clean cumulative release. Includes Web Manager/API and true source reordering, current-source-first fast Global Search, clean Live/Movies/Series receiver export with hierarchical Series, polished Premium Live picons, Adaptive Hero/MAC refinements, dependency/preflight cleanup, safer worker shutdown, clean bouquet names, and clearer install/restart feedback."
+  "sha256": "fe13e6249342380c9dba61b0d53e3ed9b2344219456593dde31cb57272738849",
+  "notes": "Ultra Stalker V7.6 final stable release. Preserves the tested V7.5.7.4 receiver behavior with stable hybrid UI navigation, protected persistent HDD artwork/cache, safe code-only upgrade cleanup, split temporary/persistent cache controls, V7.5.6 Player optimizations, and the approved Cinematic/Grid behavior. Python 3.12/3.13/3.14 supported."
 }
