@@ -1,7 +1,7 @@
 {
-  "version": "7.6",
-  "name": "Ultra Stalker V7.6",
+  "version": "7.8",
+  "name": "Ultra Stalker V7.8",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "fe13e6249342380c9dba61b0d53e3ed9b2344219456593dde31cb57272738849",
-  "notes": "Ultra Stalker V7.6 final stable release. Preserves the tested V7.5.7.4 receiver behavior with stable hybrid UI navigation, protected persistent HDD artwork/cache, safe code-only upgrade cleanup, split temporary/persistent cache controls, V7.5.6 Player optimizations, and the approved Cinematic/Grid behavior. Python 3.12/3.13/3.14 supported."
+  "sha256": "d0b054b77e0fec16a7a616c806d531030954ddcc155d0b92159420be394af1a0",
+  "notes": "V7.8 Final: faster Poster Grid/V2 navigation and page loading, complete HDD Backup & Restore for portals/settings/API credentials/state without artwork cache, stable V7.6 Cinematic/Backdrop metadata display, safer worker/cancellation handling, protected persistent artwork, and resilient folder loading that avoids blank screens after transient server failures. Python 3.12/3.13/3.14 supported."
 }

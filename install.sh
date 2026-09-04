@@ -1,15 +1,15 @@
 #!/bin/sh
-# Ultra Stalker V7.6 Final - Public Production Installer
+# Ultra Stalker V7.8 Final - Public Production Installer
 # Enigma2 / OpenBH - Python 3.12 / 3.13 / 3.14
 
 set -u
 
 PLUGIN_PKG="enigma2-plugin-extensions-ultrastalker"
-VERSION="7.6"
+VERSION="7.8"
 TAG="v10.0.60"
 IPK_NAME="UltraStalker_V7_UPDATE.ipk"
 IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/${TAG}/${IPK_NAME}"
-EXPECTED_SHA256="fe13e6249342380c9dba61b0d53e3ed9b2344219456593dde31cb57272738849"
+EXPECTED_SHA256="d0b054b77e0fec16a7a616c806d531030954ddcc155d0b92159420be394af1a0"
 TMP_IPK="/tmp/${IPK_NAME}"
 PART_IPK="${TMP_IPK}.part"
 OPKG_LOG="/tmp/ultrastalker-opkg-update.log"
@@ -41,7 +41,7 @@ PY
 }
 
 say "=============================================="
-say "          Ultra Stalker V7.6 Final"
+say "          Ultra Stalker V7.8 Final"
 say "=============================================="
 say ""
 
@@ -84,7 +84,7 @@ python3 -c 'import sqlite3' >/dev/null 2>&1 || fail "Python sqlite3 is unavailab
 python3 -c 'from PIL import Image' >/dev/null 2>&1 || fail "Python Pillow is unavailable."
 python3 -c 'import twisted; from twisted.web.client import Agent' >/dev/null 2>&1 || fail "Python Twisted is unavailable."
 
-say "[2/6] Downloading verified V7.6 package..."
+say "[2/6] Downloading verified V7.8 package..."
 rm -f "$TMP_IPK" "$PART_IPK" "$OPKG_LOG" 2>/dev/null || true
 if command -v wget >/dev/null 2>&1; then
     wget -O "$PART_IPK" "$IPK_URL" || fail "Download failed."
@@ -105,8 +105,8 @@ GOT_SHA256="$(calc_sha256 "$TMP_IPK" 2>/dev/null || true)"
 say "[OK] SHA256 verified."
 
 say "[4/6] Preparing safe upgrade..."
-# Repair only a malformed legacy root entry in the old opkg ownership list.
-# User settings and persistent artwork/cache are intentionally untouched.
+# Repair only malformed legacy root entries in the old opkg ownership list.
+# User settings, portals, backups and persistent HDD artwork/cache are untouched.
 if [ -f "$INFO_LIST" ]; then
     FIXED="${INFO_LIST}.ultrastalker.$$"
     awk '$0 != "/" && $0 != "./" && NF { print }' "$INFO_LIST" > "$FIXED" 2>/dev/null || true
@@ -123,9 +123,9 @@ if [ -d "$PLUGIN_DIR/__pycache__" ]; then
           "$PLUGIN_DIR/__pycache__/ui_navigation_runtime."*.pyc \
           "$PLUGIN_DIR/__pycache__/ui_image_runtime."*.pyc 2>/dev/null || true
 fi
-say "[OK] Upgrade path prepared without touching persistent HDD artwork."
+say "[OK] Upgrade path prepared without touching persistent HDD artwork or backups."
 
-say "[5/6] Installing Ultra Stalker V7.6..."
+say "[5/6] Installing Ultra Stalker V7.8..."
 if ! opkg install --force-reinstall "$TMP_IPK" >"$OPKG_LOG" 2>&1; then
     cat "$OPKG_LOG" 2>/dev/null || true
     fail "Package installation failed. Existing user data was not intentionally removed."
@@ -144,7 +144,7 @@ trap - EXIT INT TERM
 sync 2>/dev/null || true
 say ""
 say "=============================================="
-say " Ultra Stalker V7.6 installed successfully."
+say " Ultra Stalker V7.8 installed successfully."
 say " Enigma2 restart is handled by the package."
 say "=============================================="
 exit 0
