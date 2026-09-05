@@ -1,13 +1,13 @@
 #!/bin/sh
-# Ultra Stalker V7.9 Final - Public Production Installer
+# Ultra Stalker V8 Final - Public Production Installer
 # Enigma2 / Python 3.12, 3.13, 3.14
 set -u
 
-VERSION="7.9"
+VERSION="8.0"
 TAG="v10.0.60"
 ASSET="UltraStalker_V7_UPDATE.ipk"
 PACKAGE="enigma2-plugin-extensions-ultrastalker"
-EXPECTED_SHA256="40240028b4967b91a5e5ae3f330fd0e7bccac8f17a70d7d68a3d6171a4c836cf"
+EXPECTED_SHA256="3a3cf400024a4e9285e6b226044068ec12236fb8ff2b41eef223c7996da5f5dc"
 URL="https://github.com/K3bOra/-UltraStalker/releases/download/${TAG}/${ASSET}"
 IPK="/tmp/${ASSET}"
 PART="${IPK}.part"
