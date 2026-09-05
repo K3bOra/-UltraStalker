@@ -1,7 +1,7 @@
 {
-  "version": "7.8",
-  "name": "Ultra Stalker V7.8",
+  "version": "7.9",
+  "name": "Ultra Stalker V7.9",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "d0b054b77e0fec16a7a616c806d531030954ddcc155d0b92159420be394af1a0",
-  "notes": "V7.8 Final: faster Poster Grid/V2 navigation and page loading, complete HDD Backup & Restore for portals/settings/API credentials/state without artwork cache, stable V7.6 Cinematic/Backdrop metadata display, safer worker/cancellation handling, protected persistent artwork, and resilient folder loading that avoids blank screens after transient server failures. Python 3.12/3.13/3.14 supported."
+  "sha256": "40240028b4967b91a5e5ae3f330fd0e7bccac8f17a70d7d68a3d6171a4c836cf",
+  "notes": "Ultra Stalker V7.9 final. Keeps the fast V7.8 runtime unchanged while adding OpenViX-friendly dependency handling, native embedded subtitles with Ultra UI, dedicated AUDIO track selection while YELLOW stays subtitles-only, Parental Lock fixes, Arabic/English/Turkish/French SubDL, and unified Portal Settings UI with real URL/expiry plus Backup & Restore."
 }
