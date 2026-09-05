@@ -1,7 +1,0 @@
-{
-  "version": "8.0",
-  "name": "Ultra Stalker V8",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "3a3cf400024a4e9285e6b226044068ec12236fb8ff2b41eef223c7996da5f5dc",
-  "notes": "Ultra Stalker V8 stable. Promotes the receiver-tested V7.9.8 baseline: native OpenBH embedded subtitle selection restored; SubDL Arabic, English, Turkish and French retained; global multi-portal search retained; TMDb-only poster ratings and the fixed rating star retained."
-}
