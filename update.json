@@ -1,7 +1,7 @@
 {
-  "version": "8.0",
-  "name": "Ultra Stalker V8",
+  "version": "8.2",
+  "name": "Ultra Stalker V8.2",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "3a3cf400024a4e9285e6b226044068ec12236fb8ff2b41eef223c7996da5f5dc",
-  "notes": "Ultra Stalker V8 stable release."
+  "sha256": "4e0349adacbecbe7c9cb5edc638621f5f8e8b02be17f5be40d1c4249b8648145",
+  "notes": "Ultra Stalker V8.2 stable release."
 }
