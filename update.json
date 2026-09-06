@@ -2,6 +2,6 @@
   "version": "8.2",
   "name": "Ultra Stalker V8.2",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "4e0349adacbecbe7c9cb5edc638621f5f8e8b02be17f5be40d1c4249b8648145",
-  "notes": "Ultra Stalker V8.2 stable release."
+  "sha256": "9af449d217da4e2ce847c19e8bd6526ab3bc2cb168f678c04b77cef784639adb",
+  "notes": "Ultra Stalker V8.2 stable release \u2022 updater recovery fix \u2022 TMDb rating and direct player poster fixes \u2022 Backdrop Grid 2."
 }
