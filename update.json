@@ -1,7 +1,7 @@
 {
-  "version": "8.2",
-  "name": "Ultra Stalker V8.2",
+  "version": "8.3",
+  "name": "Ultra Stalker V8.3",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "9af449d217da4e2ce847c19e8bd6526ab3bc2cb168f678c04b77cef784639adb",
-  "notes": "Ultra Stalker V8.2 stable release \u2022 updater recovery fix \u2022 TMDb rating and direct player poster fixes \u2022 Backdrop Grid 2."
+  "sha256": "943e409db5385f5a3a046b9320d8ecbbd5ef4bbca8e105aca7a889879f0cfe31",
+  "notes": "Ultra Stalker V8.3 stable: Poster Grid now loads visible posters through a 3-worker lane while TMDb ratings load independently for every visible card. Includes Backdrop Grid 2, native embedded subtitles, player poster handoff, global multi-portal search and automatic Enigma2 restart."
 }
