@@ -3,11 +3,11 @@
 # Enigma2 / Python 3.12, 3.13, 3.14
 set -u
 
-VERSION="8.4"
+VERSION="8.4.1"
 TAG="v10.0.60"
 ASSET="UltraStalker_V7_UPDATE.ipk"
 PACKAGE="enigma2-plugin-extensions-ultrastalker"
-EXPECTED_SHA256="efe3a3a4f4ccb6195d3be8cb06d7c55ea0a62992216d470e56680762e5c8a829"
+EXPECTED_SHA256="d845f917a3a1507c454a7848dd12714ffe720bf568966e0196c06f14f2131876"
 URL="https://github.com/K3bOra/-UltraStalker/releases/download/${TAG}/${ASSET}"
 IPK="/tmp/${ASSET}"
 PART="${IPK}.part"
