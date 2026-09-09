@@ -1,7 +1,7 @@
 {
   "version": "8.4",
   "name": "Ultra Stalker V8.4",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V8.4.ipk",
-  "sha256": "29627fe07fe4986dd46a1d7a109f7de441744e621b9d1af20e170f29468a1126",
+  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
+  "sha256": "efe3a3a4f4ccb6195d3be8cb06d7c55ea0a62992216d470e56680762e5c8a829",
   "notes": "Ultra Stalker V8.4 final: performance optimizations, safer background work, reduced idle I/O, crash fixes, and Backdrop Grid 2 native surface fix."
 }
