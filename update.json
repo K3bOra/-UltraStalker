@@ -1,7 +1,7 @@
 {
-  "version": "8.4.1",
-  "name": "Ultra Stalker V8.4.1",
+  "version": "8.5",
+  "name": "Ultra Stalker V8.5",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "d845f917a3a1507c454a7848dd12714ffe720bf568966e0196c06f14f2131876",
-  "notes": "Ultra Stalker V8.4.1 fixes movie year display in Xtream and M3U grids by reusing the existing canonical TMDb metadata already fetched for ratings. Includes all V8.4 performance, worker, disk I/O, crash and Backdrop Grid 2 stability improvements. No UI layout or artwork behavior changes."
+  "sha256": "403902a57be81f2efff4383b80fc66a938a898560b06b549d4d98eee6ca584fd",
+  "notes": "V8.5 Final: stability, performance and premium UI release with bounded cache protection, compact inline menus and subtitles, refreshed Free Portal/Xtream libraries, safer backup/restore behavior, clearer Player labels and broader receiver compatibility."
 }

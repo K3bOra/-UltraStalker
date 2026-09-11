@@ -1,13 +1,13 @@
 #!/bin/sh
-# Ultra Stalker V8.4 Final - Public Production Installer
+# Ultra Stalker V8 Final - Public Production Installer
 # Enigma2 / Python 3.12, 3.13, 3.14
 set -u
 
-VERSION="8.4.1"
+VERSION="8.5"
 TAG="v10.0.60"
 ASSET="UltraStalker_V7_UPDATE.ipk"
 PACKAGE="enigma2-plugin-extensions-ultrastalker"
-EXPECTED_SHA256="d845f917a3a1507c454a7848dd12714ffe720bf568966e0196c06f14f2131876"
+EXPECTED_SHA256="403902a57be81f2efff4383b80fc66a938a898560b06b549d4d98eee6ca584fd"
 URL="https://github.com/K3bOra/-UltraStalker/releases/download/${TAG}/${ASSET}"
 IPK="/tmp/${ASSET}"
 PART="${IPK}.part"
@@ -202,7 +202,25 @@ say "[OK] SHA256 verified: $GOT"
 
 say ""
 say "[4/5] Installing Ultra Stalker V$VERSION..."
-opkg install "$IPK" >>"$LOG" 2>&1 || fail "Package installation failed. See $LOG"
+# Repair only malformed legacy root ownership entries before opkg solves the local IPK.
+INFO="/usr/lib/opkg/info/${PACKAGE}.list"
+if [ -f "$INFO" ]; then
+    TMP_LIST="${INFO}.ultrastalker.$$"
+    awk '{ line=$0; gsub(/^[[:space:]]+|[[:space:]]+$/, "", line); if (line != "/" && line != "./" && line != "//" && line != "") print $0 }' "$INFO" > "$TMP_LIST" 2>/dev/null || true
+    if [ -s "$TMP_LIST" ]; then mv -f "$TMP_LIST" "$INFO"; else rm -f "$TMP_LIST"; fi
+fi
+OUT="$(opkg install "$IPK" 2>&1)"
+RC=$?
+printf '%s
+' "$OUT" >>"$LOG"
+if [ "$RC" -ne 0 ] && printf '%s' "$OUT" | grep -qi 'no candidates to install'; then
+    say "      Same package revision is already registered; applying verified force-reinstall."
+    OUT2="$(opkg install --force-reinstall "$IPK" 2>&1)"
+    RC=$?
+    printf '%s
+' "$OUT2" >>"$LOG"
+fi
+[ "$RC" -eq 0 ] || fail "Package installation failed. See $LOG"
 INSTALLED="$(opkg status "$PACKAGE" 2>/dev/null | awk -F': ' '/^Version:/{print $2; exit}')"
 [ "$INSTALLED" = "$VERSION" ] || fail "Installed version is ${INSTALLED:-unknown}; expected $VERSION."
 say "[OK] Installed package version: $INSTALLED"
