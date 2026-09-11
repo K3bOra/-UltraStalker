@@ -1,7 +1,7 @@
 {
-  "version": "8.5",
-  "name": "Ultra Stalker V8.5",
+  "version": "8.5.1",
+  "name": "Ultra Stalker V8.5.1",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "403902a57be81f2efff4383b80fc66a938a898560b06b549d4d98eee6ca584fd",
-  "notes": "V8.5 Final: stability, performance and premium UI release with bounded cache protection, compact inline menus and subtitles, refreshed Free Portal/Xtream libraries, safer backup/restore behavior, clearer Player labels and broader receiver compatibility."
+  "sha256": "2542f575322cda13aee9897ef1cecbe98c99e8a33d2e924c967bacd3bfe17b67",
+  "notes": "V8.5.1 hotfix: EXIT now closes the active inline subtitle menu and returns to playback instead of closing the movie. All other V8.5 runtime behavior remains unchanged."
 }
