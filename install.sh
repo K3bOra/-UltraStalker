@@ -1,234 +1,136 @@
 #!/bin/sh
-# Ultra Stalker V8 Final - Public Production Installer
-# Enigma2 / Python 3.12, 3.13, 3.14
-set -u
+set -eu
 
-VERSION="8.5.1"
-TAG="v10.0.60"
-ASSET="UltraStalker_V7_UPDATE.ipk"
-PACKAGE="enigma2-plugin-extensions-ultrastalker"
-EXPECTED_SHA256="2542f575322cda13aee9897ef1cecbe98c99e8a33d2e924c967bacd3bfe17b67"
-URL="https://github.com/K3bOra/-UltraStalker/releases/download/${TAG}/${ASSET}"
-IPK="/tmp/${ASSET}"
-PART="${IPK}.part"
-LOG="/tmp/ultrastalker_install.log"
-REFRESHED=0
-FEED_OK=unknown
+MANIFEST_URL="https://raw.githubusercontent.com/K3bOra/-UltraStalker/main/update.json"
+OFFICIAL_IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk"
+TMP_MANIFEST="/tmp/UltraStalker_update_manifest.$$"
+TMP_IPK="/tmp/UltraStalker_online_install.$$.ipk"
+TMP_META="/tmp/UltraStalker_update_meta.$$"
 
-: > "$LOG"
-say() { printf '%s\n' "$*" | tee -a "$LOG"; }
-cleanup() { rm -f "$IPK" "$PART" 2>/dev/null || true; }
-fail() { say ""; say "[ERROR] $*"; cleanup; exit 1; }
+cleanup() {
+    rm -f "$TMP_MANIFEST" "$TMP_IPK" "$TMP_META" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
 
-py_ok() {
-    python3 - "$1" <<'PY' >/dev/null 2>&1
-import sys
-name=sys.argv[1]
-if name == "sqlite":
-    import sqlite3
-    c=sqlite3.connect(":memory:")
-    c.execute("create table us_test(x integer)")
-    c.execute("insert into us_test values (1)")
-    assert c.execute("select x from us_test").fetchone()[0] == 1
-    c.close()
-elif name == "pillow":
-    from PIL import Image
-    im=Image.new("RGB",(2,2))
-    assert im.size == (2,2)
-elif name == "twisted":
-    import twisted
-    from twisted.web.client import Agent
-elif name == "ssl":
-    import ssl
-    ssl.create_default_context()
-else:
-    raise SystemExit(1)
+fetch() {
+    url="$1"
+    out="$2"
+    if command -v wget >/dev/null 2>&1; then
+        wget -q -O "$out" "$url"
+        return $?
+    fi
+    if command -v curl >/dev/null 2>&1; then
+        curl -fL --connect-timeout 15 --max-time 300 -o "$out" "$url"
+        return $?
+    fi
+    python3 - "$url" "$out" <<'PY'
+import sys, urllib.request
+url, out = sys.argv[1], sys.argv[2]
+req = urllib.request.Request(url, headers={"User-Agent":"UltraStalker-Installer/9"})
+with urllib.request.urlopen(req, timeout=30) as r, open(out, "wb") as f:
+    while True:
+        b = r.read(131072)
+        if not b:
+            break
+        f.write(b)
 PY
 }
 
-refresh_feeds_once() {
-    [ "$REFRESHED" -eq 1 ] && return 0
-    REFRESHED=1
-    say "      Refreshing package feeds..."
-    if opkg update >>"$LOG" 2>&1; then
-        FEED_OK=yes
-        say "      Feed refresh: OK"
-    else
-        FEED_OK=no
-        say "      Feed refresh: FAILED; cached package metadata will still be checked."
-    fi
-    return 0
+echo "[Ultra Stalker] Reading online release manifest..."
+fetch "$MANIFEST_URL" "$TMP_MANIFEST" || {
+    echo "ERROR: Could not download update.json"
+    exit 1
 }
 
-pkg_advertised() {
-    p="$1"
-    opkg list-installed "$p" 2>/dev/null | grep -q "^$p " && return 0
-    opkg list "$p" 2>/dev/null | grep -q "^$p " && return 0
-    return 1
-}
-
-discover_pkg() {
-    kind="$1"
-    opkg list 2>/dev/null | awk -v kind="$kind" '
-        {
-            p=$1; l=tolower(p)
-            if (kind=="sqlite" && l ~ /^python3-/ && l ~ /sqlite/) {print p; exit}
-            if (kind=="pillow" && l ~ /^python3-/ && (l ~ /pillow/ || l ~ /-pil($|-)/)) {print p; exit}
-            if (kind=="twisted" && ((l ~ /^python3-/ && l ~ /twisted/) || l=="twisted")) {print p; exit}
-        }
-    '
-}
-
-resolve_runtime() {
-    kind="$1"; label="$2"; canonical="$3"; shift 3
-    if py_ok "$kind"; then
-        say "[OK] $label"
-        return 0
-    fi
-
-    say "[MISSING] $label"
-    refresh_feeds_once
-    tried=""
-    for p in "$canonical" "$@"; do
-        pkg_advertised "$p" || continue
-        case " $tried " in *" $p "*) continue;; esac
-        tried="$tried $p"
-        say "      Trying package: $p"
-        if opkg install "$p" >>"$LOG" 2>&1 && py_ok "$kind"; then
-            if [ "$p" != "$canonical" ]; then
-                say "      Package-name mismatch resolved with: $p"
-            elif [ "$FEED_OK" = "no" ]; then
-                say "      Feed failure tolerated using cached metadata."
-            fi
-            say "[OK] $label"
-            return 0
-        fi
-    done
-
-    d="$(discover_pkg "$kind")"
-    if [ -n "$d" ]; then
-        case " $tried " in
-            *" $d "*) : ;;
-            *)
-                say "      Discovered package: $d"
-                if opkg install "$d" >>"$LOG" 2>&1 && py_ok "$kind"; then
-                    say "      Package-name mismatch resolved with discovered package: $d"
-                    say "[OK] $label"
-                    return 0
-                fi
-                ;;
-        esac
-    fi
-
-    if [ "$FEED_OK" = "no" ]; then
-        say "      Classification: FEED FAILURE / no usable cached candidate."
-    else
-        say "      Classification: DEPENDENCY GENUINELY UNAVAILABLE."
-    fi
-    return 1
-}
-
-calc_sha256() {
-    f="$1"
-    if command -v sha256sum >/dev/null 2>&1; then
-        sha256sum "$f" | awk '{print $1}'
-    elif command -v busybox >/dev/null 2>&1 && busybox sha256sum "$f" >/dev/null 2>&1; then
-        busybox sha256sum "$f" | awk '{print $1}'
-    else
-        python3 - "$f" <<'PY'
-import hashlib,sys
-h=hashlib.sha256()
-with open(sys.argv[1],'rb') as f:
-    for b in iter(lambda:f.read(1024*1024),b''):
-        h.update(b)
-print(h.hexdigest())
+python3 - "$TMP_MANIFEST" "$OFFICIAL_IPK_URL" > "$TMP_META" <<'PY'
+import json, re, sys
+p, official = sys.argv[1], sys.argv[2]
+with open(p, "r", encoding="utf-8") as f:
+    d = json.load(f)
+version = str(d.get("version") or "").strip()
+ipk = str(d.get("ipk") or "").strip()
+sha = str(d.get("sha256") or "").strip().lower()
+if not re.fullmatch(r"\d+(?:\.\d+){1,3}", version):
+    raise SystemExit("ERROR: Invalid online version")
+if ipk != official:
+    raise SystemExit("ERROR: Manifest package URL is not the approved Ultra Stalker asset")
+if not re.fullmatch(r"[0-9a-f]{64}", sha):
+    raise SystemExit("ERROR: Invalid SHA256 in update.json")
+print(version)
+print(ipk)
+print(sha)
 PY
-    fi
+
+VERSION=$(sed -n '1p' "$TMP_META")
+IPK_URL=$(sed -n '2p' "$TMP_META")
+EXPECTED_SHA=$(sed -n '3p' "$TMP_META")
+
+[ -n "$VERSION" ] && [ -n "$IPK_URL" ] && [ -n "$EXPECTED_SHA" ] || {
+    echo "ERROR: Could not read update metadata"
+    exit 1
 }
 
-say "=============================================="
-say "          Ultra Stalker V$VERSION"
-say "          Final Public Installer"
-say "=============================================="
-say ""
+echo "[Ultra Stalker] Downloading Final/Online version $VERSION..."
+fetch "$IPK_URL" "$TMP_IPK" || {
+    echo "ERROR: Package download failed"
+    exit 1
+}
 
-[ "$(id -u 2>/dev/null || echo 1)" = "0" ] || fail "Please run this installer as root."
-command -v opkg >/dev/null 2>&1 || fail "opkg was not found. This receiver is not supported."
-command -v python3 >/dev/null 2>&1 || fail "python3 was not found."
+python3 - "$TMP_IPK" "$EXPECTED_SHA" <<'PY'
+import hashlib, os, sys
+p, expected = sys.argv[1], sys.argv[2].lower()
+size = os.path.getsize(p) if os.path.isfile(p) else 0
+if size < 1024:
+    raise SystemExit("ERROR: Downloaded package is empty or truncated")
+if size > 64 * 1024 * 1024:
+    raise SystemExit("ERROR: Downloaded package is unexpectedly large")
+h = hashlib.sha256()
+with open(p, "rb") as f:
+    for block in iter(lambda: f.read(1024 * 1024), b""):
+        h.update(block)
+actual = h.hexdigest().lower()
+if actual != expected:
+    raise SystemExit("ERROR: SHA256 verification failed\nExpected: %s\nActual:   %s" % (expected, actual))
+print("[Ultra Stalker] SHA256 verified: %s" % actual)
+PY
 
-PYVER="$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])' 2>/dev/null || true)"
-case "$PYVER" in
-    3.12|3.13|3.14) say "[OK] Python $PYVER detected." ;;
-    *) fail "Unsupported Python version: ${PYVER:-not found}. Required: 3.12 / 3.13 / 3.14." ;;
-esac
+# Repair only the invalid root ownership entries produced by some very old builds.
+python3 - <<'PY'
+import os
+p = "/usr/lib/opkg/info/enigma2-plugin-extensions-ultrastalker.list"
+try:
+    if os.path.isfile(p):
+        with open(p, "r", encoding="utf-8", errors="replace") as f:
+            lines = f.readlines()
+        cleaned = [x for x in lines if x.strip() not in ("", "/", "./")]
+        if cleaned != lines:
+            t = p + ".ultrastalker-clean"
+            with open(t, "w", encoding="utf-8") as f:
+                f.writelines(cleaned)
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(t, p)
+except Exception:
+    pass
+PY
 
-if py_ok ssl; then
-    say "[OK] Python SSL runtime"
-else
-    say "[WARN] Python SSL runtime check failed; HTTPS download may fail."
+echo "[Ultra Stalker] Installing $VERSION..."
+set +e
+OUTPUT=$(opkg install "$TMP_IPK" 2>&1)
+CODE=$?
+set -e
+printf '%s\n' "$OUTPUT"
+
+if [ "$CODE" -ne 0 ]; then
+    if printf '%s' "$OUTPUT" | grep -qi "no candidates to install"; then
+        echo "[Ultra Stalker] Retrying as a verified force-reinstall..."
+        opkg install --force-reinstall "$TMP_IPK"
+    else
+        echo "ERROR: opkg installation failed"
+        exit "$CODE"
+    fi
 fi
 
-say ""
-say "[1/5] Checking required Python runtimes..."
-FAIL=0
-resolve_runtime sqlite "Python SQLite runtime" python3-sqlite3 python3-sqlite python3-modules || FAIL=1
-resolve_runtime pillow "Python Pillow runtime" python3-pillow python3-pil python3-pillow-core || FAIL=1
-resolve_runtime twisted "Python Twisted runtime" python3-twisted python3-twisted-core twisted || FAIL=1
-[ "$FAIL" -eq 0 ] && py_ok sqlite && py_ok pillow && py_ok twisted || fail "One or more required Python runtimes remain unavailable. See $LOG"
-
-say ""
-say "[2/5] Downloading official V$VERSION package..."
-cleanup
-if command -v wget >/dev/null 2>&1; then
-    wget -O "$PART" "$URL" >>"$LOG" 2>&1 || fail "Download failed."
-elif command -v curl >/dev/null 2>&1; then
-    curl -fL "$URL" -o "$PART" >>"$LOG" 2>&1 || fail "Download failed."
-else
-    fail "Neither wget nor curl is available."
-fi
-[ -s "$PART" ] || fail "Downloaded package is empty."
-SIZE="$(wc -c < "$PART" 2>/dev/null || echo 0)"
-case "$SIZE" in ''|*[!0-9]*) fail "Could not verify downloaded package size." ;; esac
-[ "$SIZE" -gt 1000000 ] || fail "Downloaded package is unexpectedly small."
-mv -f "$PART" "$IPK"
-say "[OK] Download complete: $SIZE bytes"
-
-say ""
-say "[3/5] Verifying SHA256..."
-GOT="$(calc_sha256 "$IPK" 2>/dev/null || true)"
-[ -n "$GOT" ] || fail "No SHA256 verifier is available."
-[ "$GOT" = "$EXPECTED_SHA256" ] || fail "SHA256 mismatch. Expected $EXPECTED_SHA256 but got $GOT"
-say "[OK] SHA256 verified: $GOT"
-
-say ""
-say "[4/5] Installing Ultra Stalker V$VERSION..."
-# Repair only malformed legacy root ownership entries before opkg solves the local IPK.
-INFO="/usr/lib/opkg/info/${PACKAGE}.list"
-if [ -f "$INFO" ]; then
-    TMP_LIST="${INFO}.ultrastalker.$$"
-    awk '{ line=$0; gsub(/^[[:space:]]+|[[:space:]]+$/, "", line); if (line != "/" && line != "./" && line != "//" && line != "") print $0 }' "$INFO" > "$TMP_LIST" 2>/dev/null || true
-    if [ -s "$TMP_LIST" ]; then mv -f "$TMP_LIST" "$INFO"; else rm -f "$TMP_LIST"; fi
-fi
-OUT="$(opkg install "$IPK" 2>&1)"
-RC=$?
-printf '%s
-' "$OUT" >>"$LOG"
-if [ "$RC" -ne 0 ] && printf '%s' "$OUT" | grep -qi 'no candidates to install'; then
-    say "      Same package revision is already registered; applying verified force-reinstall."
-    OUT2="$(opkg install --force-reinstall "$IPK" 2>&1)"
-    RC=$?
-    printf '%s
-' "$OUT2" >>"$LOG"
-fi
-[ "$RC" -eq 0 ] || fail "Package installation failed. See $LOG"
-INSTALLED="$(opkg status "$PACKAGE" 2>/dev/null | awk -F': ' '/^Version:/{print $2; exit}')"
-[ "$INSTALLED" = "$VERSION" ] || fail "Installed version is ${INSTALLED:-unknown}; expected $VERSION."
-say "[OK] Installed package version: $INSTALLED"
-
-say ""
-say "[5/5] Cleaning temporary package..."
-cleanup
 sync 2>/dev/null || true
-say "[OK] Ultra Stalker V$VERSION installation completed successfully."
-say "      Enigma2 restart is handled by the package post-install step."
-exit 0
+echo "[Ultra Stalker] Installation complete: $VERSION"
+echo "Restart Enigma2 to load the new version."
