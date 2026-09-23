@@ -10,7 +10,7 @@ IPK_NAME="UltraStalker_Final_V9.1_UPDATE.ipk"
 PRIMARY_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v9.1.0/${IPK_NAME}"
 LEGACY_NAME="UltraStalker_V7_UPDATE.ipk"
 FALLBACK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${LEGACY_NAME}"
-EXPECTED_SHA256="3c5ca4374f2b757d0417448ef0e4f016c57394e9faa592dd58273a21b1026868"
+EXPECTED_SHA256="5ef536b3db86f4e1eb35362dbc6924d0f827496f4fe0167367af45145d6ffab5"
 TMP_IPK="/tmp/UltraStalker_Final_V9.1.ipk"
 TMP_PART="${TMP_IPK}.part"
 
