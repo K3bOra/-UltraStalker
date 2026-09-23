@@ -1,7 +1,0 @@
-{
-  "version": "9.1",
-  "name": "Ultra Stalker Final V9.1",
-  "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "5ef536b3db86f4e1eb35362dbc6924d0f827496f4fe0167367af45145d6ffab5",
-  "notes": "• SubSource matching + accurate video quality.\n• HQ TMDb backdrop replacement.\n• Live EPG Now / Next.\n• Auto stream retry up to 3 attempts.\n• Player / InfoBar stability + better dependency handling."
-}
