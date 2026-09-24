@@ -1,17 +1,15 @@
 #!/bin/sh
-# Ultra Stalker Final V9.1 - Public Online Installer
+# Ultra Stalker Final V9.1.1 - Public Online Installer
 # Enigma2 / Python 3.12, 3.13, 3.14, 3.15
 
 set -u
 
 PLUGIN_PKG="enigma2-plugin-extensions-ultrastalker"
-TARGET_VERSION="9.1.0"
-IPK_NAME="UltraStalker_Final_V9.1_UPDATE.ipk"
-PRIMARY_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v9.1.0/${IPK_NAME}"
-LEGACY_NAME="UltraStalker_V7_UPDATE.ipk"
-FALLBACK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${LEGACY_NAME}"
-EXPECTED_SHA256="5ef536b3db86f4e1eb35362dbc6924d0f827496f4fe0167367af45145d6ffab5"
-TMP_IPK="/tmp/UltraStalker_Final_V9.1.ipk"
+TARGET_VERSION="9.1.1"
+IPK_NAME="UltraStalker_V7_UPDATE.ipk"
+IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${IPK_NAME}"
+EXPECTED_SHA256="a6b1c731fd6074df0f1f8058f40f746678e735a343856ff9505cdd7655aa7e49"
+TMP_IPK="/tmp/UltraStalker_Final_V9.1.1.ipk"
 TMP_PART="${TMP_IPK}.part"
 
 say() { printf '%s\n' "$*"; }
@@ -50,8 +48,8 @@ calc_sha256() {
 }
 
 say "=============================================="
-say "        Ultra Stalker Final V9.1"
-say "              Online Installer"
+say "       Ultra Stalker Final V9.1.1"
+say "             Online Installer"
 say "=============================================="
 
 [ "$(id -u 2>/dev/null || echo 1)" = "0" ] || fail "Run this installer as root."
@@ -77,14 +75,8 @@ case "$FREE_KB" in
     *) [ "$FREE_KB" -ge 30000 ] || fail "At least 30 MB free space in /tmp is required." ;;
 esac
 
-say "[1/4] Downloading Ultra Stalker V9.1..."
-if fetch_url "$PRIMARY_URL"; then
-    say "[OK] Downloaded official V9.1 package."
-elif fetch_url "$FALLBACK_URL"; then
-    say "[OK] Downloaded legacy-compatible V9.1 bridge package."
-else
-    fail "Download failed from both official package locations."
-fi
+say "[1/4] Downloading Ultra Stalker V9.1.1..."
+fetch_url "$IPK_URL" || fail "Download failed."
 mv -f "$TMP_PART" "$TMP_IPK"
 
 SIZE="$(wc -c < "$TMP_IPK" 2>/dev/null || echo 0)"
@@ -113,9 +105,9 @@ INSTALLED_VERSION="$(printf '%s\n' "$STATUS" | awk -F': ' '/^Version:/ {print $2
 say "[4/4] Installation verified."
 say ""
 say "=============================================="
-say " Ultra Stalker Final V9.1 installed correctly."
-say " Dependency repair and GUI restart, if needed,"
-say " are handled automatically by the package."
+say " Ultra Stalker Final V9.1.1 installed."
+say " Enigma2 restart is handled by the package"
+say " after the approved one-second delay."
 say "=============================================="
 sync 2>/dev/null || true
 exit 0
