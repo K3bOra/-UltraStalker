@@ -1,39 +1,22 @@
 #!/bin/sh
-# Ultra Stalker Final V9.1.1 - Public Online Installer
+# Ultra Stalker Final V9.1.2 - Public Online Installer
 # Enigma2 / Python 3.12, 3.13, 3.14, 3.15
 
 set -u
 
 PLUGIN_PKG="enigma2-plugin-extensions-ultrastalker"
-TARGET_VERSION="9.1.1"
+TARGET_VERSION="9.1.2"
 IPK_NAME="UltraStalker_V7_UPDATE.ipk"
 IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${IPK_NAME}"
-EXPECTED_SHA256="a6b1c731fd6074df0f1f8058f40f746678e735a343856ff9505cdd7655aa7e49"
-TMP_IPK="/tmp/UltraStalker_Final_V9.1.1.ipk"
+EXPECTED_SHA256="10e27e9eecd797894113c1d19f8c802dd40b5b82a5dd404f9c842f91ffe654cb"
+TMP_IPK="/tmp/${IPK_NAME}"
 TMP_PART="${TMP_IPK}.part"
+OPKG_LOG="/tmp/ultrastalker-opkg-update.log"
 
 say() { printf '%s\n' "$*"; }
-cleanup() { rm -f "$TMP_IPK" "$TMP_PART" 2>/dev/null || true; }
+cleanup() { rm -f "$TMP_IPK" "$TMP_PART" "$OPKG_LOG" 2>/dev/null || true; }
 fail() { say ""; say "[ERROR] $*"; cleanup; exit 1; }
 trap cleanup EXIT INT TERM
-
-fetch_url() {
-    url="$1"
-    rm -f "$TMP_PART" 2>/dev/null || true
-    if command -v wget >/dev/null 2>&1; then
-        if wget -O "$TMP_PART" "$url"; then
-            [ -s "$TMP_PART" ] && return 0
-        fi
-        rm -f "$TMP_PART" 2>/dev/null || true
-    fi
-    if command -v curl >/dev/null 2>&1; then
-        if curl -fL "$url" -o "$TMP_PART"; then
-            [ -s "$TMP_PART" ] && return 0
-        fi
-        rm -f "$TMP_PART" 2>/dev/null || true
-    fi
-    return 1
-}
 
 calc_sha256() {
     if command -v sha256sum >/dev/null 2>&1; then
@@ -47,9 +30,23 @@ calc_sha256() {
     fi
 }
 
+fetch_package() {
+    rm -f "$TMP_PART" 2>/dev/null || true
+    if command -v wget >/dev/null 2>&1; then
+        wget -O "$TMP_PART" "$IPK_URL" || return 1
+    elif command -v curl >/dev/null 2>&1; then
+        curl -fL "$IPK_URL" -o "$TMP_PART" || return 1
+    else
+        return 1
+    fi
+    [ -s "$TMP_PART" ] || return 1
+    mv -f "$TMP_PART" "$TMP_IPK"
+    return 0
+}
+
 say "=============================================="
-say "       Ultra Stalker Final V9.1.1"
-say "             Online Installer"
+say "       Ultra Stalker Final V9.1.2"
+say "              Online Installer"
 say "=============================================="
 
 [ "$(id -u 2>/dev/null || echo 1)" = "0" ] || fail "Run this installer as root."
@@ -75,9 +72,29 @@ case "$FREE_KB" in
     *) [ "$FREE_KB" -ge 30000 ] || fail "At least 30 MB free space in /tmp is required." ;;
 esac
 
-say "[1/4] Downloading Ultra Stalker V9.1.1..."
-fetch_url "$IPK_URL" || fail "Download failed."
-mv -f "$TMP_PART" "$TMP_IPK"
+say "[1/5] Checking required libraries..."
+MISSING=""
+if ! "$PYBIN" -c 'import sqlite3' >/dev/null 2>&1; then MISSING="$MISSING python3-sqlite3"; fi
+if ! "$PYBIN" -c 'from PIL import Image' >/dev/null 2>&1; then MISSING="$MISSING python3-pillow"; fi
+if ! "$PYBIN" -c 'import twisted; from twisted.web.client import Agent' >/dev/null 2>&1; then MISSING="$MISSING python3-twisted"; fi
+if [ -n "$MISSING" ]; then
+    say "      Missing:$MISSING"
+    say "      Refreshing package feeds..."
+    opkg update >"$OPKG_LOG" 2>&1 || say "[WARN] Package feed refresh reported an error; trying available lists."
+    for dep in $MISSING; do
+        say "      Installing $dep..."
+        opkg install "$dep" || fail "Could not install required dependency: $dep"
+    done
+else
+    say "[OK] Required libraries are already installed."
+fi
+
+"$PYBIN" -c 'import sqlite3' >/dev/null 2>&1 || fail "Python sqlite3 is unavailable."
+"$PYBIN" -c 'from PIL import Image' >/dev/null 2>&1 || fail "Python Pillow is unavailable."
+"$PYBIN" -c 'import twisted; from twisted.web.client import Agent' >/dev/null 2>&1 || fail "Python Twisted is unavailable."
+
+say "[2/5] Downloading Ultra Stalker V9.1.2..."
+fetch_package || fail "Download failed."
 
 SIZE="$(wc -c < "$TMP_IPK" 2>/dev/null || echo 0)"
 case "$SIZE" in
@@ -85,15 +102,15 @@ case "$SIZE" in
     *) [ "$SIZE" -gt 1000000 ] || fail "Downloaded file is too small to be a valid Ultra Stalker package." ;;
 esac
 
-say "[2/4] Verifying SHA256..."
+say "[3/5] Verifying SHA256..."
 ACTUAL_SHA256="$(calc_sha256 "$TMP_IPK" 2>/dev/null || true)"
 [ -n "$ACTUAL_SHA256" ] || fail "No SHA256 verification tool is available."
 [ "$ACTUAL_SHA256" = "$EXPECTED_SHA256" ] || fail "SHA256 mismatch. Package was not installed."
 say "[OK] Package integrity verified."
 
-say "[3/4] Installing / updating Ultra Stalker..."
+say "[4/5] Installing / updating Ultra Stalker..."
 if ! opkg install --force-reinstall "$TMP_IPK"; then
-    say "[WARN] --force-reinstall failed; retrying with normal opkg install..."
+    say "[WARN] --force-reinstall failed; retrying normal opkg install..."
     opkg install "$TMP_IPK" || fail "Package installation failed."
 fi
 
@@ -102,12 +119,11 @@ printf '%s\n' "$STATUS" | grep -q '^Status:.* installed' || fail "Ultra Stalker 
 INSTALLED_VERSION="$(printf '%s\n' "$STATUS" | awk -F': ' '/^Version:/ {print $2; exit}')"
 [ "$INSTALLED_VERSION" = "$TARGET_VERSION" ] || fail "Unexpected installed version: ${INSTALLED_VERSION:-unknown}; expected $TARGET_VERSION."
 
-say "[4/4] Installation verified."
+say "[5/5] Installation verified."
 say ""
 say "=============================================="
-say " Ultra Stalker Final V9.1.1 installed."
-say " Enigma2 restart is handled by the package"
-say " after the approved one-second delay."
+say " Ultra Stalker Final V9.1.2 installed correctly."
+say " Enigma2 restart is handled by the package."
 say "=============================================="
 sync 2>/dev/null || true
 exit 0
