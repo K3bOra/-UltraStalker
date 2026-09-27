@@ -1,2 +1,61 @@
 # UltraStalker
 All-in-one Enigma2 media hub for Live TV, Movies, Series, Local Media, Trailers, Search, Subtitles and more
+- **Full Live TV:** Play channels from Portal, Xtream, and M3U, with EPG Now/Next, automatic stream retry on failure, and real-time stream quality detection during playback.
+- **Movies & Series:** Browse movies and series using Cinematic, Backdrop, Poster Grid, and Poster Grid V2 views, with posters, backdrops, and Title Logos.
+- **Advanced Content Details:** Full overview, ratings, year, runtime, genres, cast, writer, director, and TMDb information linked to the exact title.
+- **New Local Library:** Play movies and series directly from HDD or USB inside Ultra Stalker without needing a separate plugin.
+- **Local Movies:** Display local movies using Ultra Stalker’s Cinematic interface with Poster, Backdrop, and Title Logo when available.
+- **Local Series:** Automatically detect seasons and episodes, support episode naming such as `S01E01` and `1x01`, and organize them into Seasons/Episodes.
+- **Local Browse:** Browse local folders and media files directly from inside the plugin.
+- **Smart Local Index:** Index local media and save the index to avoid rescanning the entire HDD every time, with manual Refresh when needed.
+- **Shared Artwork Cache:** Reuse the same Poster, Backdrop, Metadata, and Title Logo across Portal, Xtream, M3U, and Local instead of downloading them repeatedly.
+- **TMDb Smart Identity:** More accurate movie and series matching to reduce incorrect title identification, using title, year, language, and country when needed.
+- **Title Logo System:** Display the official movie or series Title Logo instead of plain text when available in Cinematic, Details, Local, and Trailer playback.
+- **Full HD Trailers:** Play the trailer for the exact selected title using the same TMDb ID, without guessing by title name.
+- **Trailer Artwork Parity:** Trailer playback uses the same Poster and Title Logo as the movie or series it was launched from.
+- **Trailer Quality:** 1080p Full HD is preferred first, with 720p fallback when needed.
+- **Trailer Safe Playback:** Trailers are excluded from Resume and History, keeping the watch history clean.
+- **Global Search:** Unified Movies and Series search across Portal, Xtream, and M3U.
+- **Server Search:** Search across different saved server sources with progressive results while they are being received.
+- **Live Search:** Search Live TV channels directly from inside the plugin.
+- **Search History:** Save up to 100 previous searches and access them directly from the Search screen.
+- **Movies / Series Search Gateway:** Separate movie and series search results with clear result counters for each type.
+- **Recent Content:** Show recently used content on Home with better Series organization and reduced duplicate seasons/episodes.
+- **Favorites:** Separate favorites for Live TV, Movies, and Series.
+- **Favorites Folders:** Create folders inside Favorites and move items between them.
+- **Favorites Reorder:** Manually reorder favorite items and organize them inside lists and folders.
+- **Live Export:** Export Categories or Channels to Enigma2 Bouquets.
+- **M3U Export:** Export selected categories as M3U playlists for external use.
+- **Premium Channel Icons:** Support high-quality Picons and channel icons.
+- **Advanced Player:** Ultra Stalker’s own player for Movies, Series, Live TV, Local Media, and Trailers.
+- **Aspect Ratio Control:** Change the Aspect Ratio directly from inside the Player.
+- **Player InfoBar:** Display elapsed time, total time, remaining time, video quality, Audio, Subtitles, and stream information.
+- **Quality Detection:** Automatically detect SD / HD / FHD / 4K after playback starts.
+- **Auto Stream Retry:** Automatically retry stream playback up to 3 times if the source fails.
+- **Next Episode Handling:** Improved transition to the next episode with fewer interruptions during playback.
+- **Subtitle Support:** Support embedded, external, and online subtitles.
+- **SubsSupport + SubsSupportPro Integration:** Control external subtitle solutions directly from inside the Ultra Stalker Player.
+- **Subtitle Session Memory:** Remember subtitle selection and synchronization when returning to the same content during the same session.
+- **Pause During Subtitle Selection:** Pause playback while choosing external subtitles, then resume correctly after returning.
+- **Offline Portal Access:** If the server does not respond, Ultra Stalker does not get stuck during startup and can still open Home while showing an Offline status.
+- **Local Access While Portal Is Down:** Access Local Movies, Series, and Browse even when the main Portal is unavailable.
+- **Home Improvements:** Cleaner Home layout, better Recents, integrated Local Library, and visible server connection/status information.
+- **Account INFO:** Open account information directly from Home without going through the old menu structure.
+- **Adaptive Overview:** Automatically adjust Overview font size according to text length without cutting the content.
+- **29 Interface Languages:** Full interface support for 29 languages.
+- **Auto-Fit Localization:** Automatically resize long translated text so buttons and labels are not cut off.
+- **RTL Support:** Improved Arabic and other right-to-left language layouts, especially on Home, menus, and account information.
+- **Web Connection Manager:** Manage connection sources, reorder them, and save their order.
+- **Web Cleaner:** Manage and clean selected Ultra Stalker settings and sources through a web interface on the local network.
+- **Backup & Restore:** Backup and restore plugin settings, profiles, portals, user state, and other important data.
+- **Persistent HDD Cache:** Keep Posters, Backdrops, and Metadata stored on the HDD so they do not need to be downloaded again every time.
+- **Artwork Protection:** Once an official Poster/Backdrop is confirmed for the correct TMDb ID, Ultra Stalker keeps it stable instead of replacing it with random artwork.
+- **Safe Upgrade:** Update Ultra Stalker without deleting Settings, Portals, Favorites, History, or the HDD artwork cache.
+- **Online Update:** Check for and install official updates directly from inside the plugin.
+- **Localized Update Notes:** Update notes are displayed in the user’s selected interface language on supported versions.
+- **Performance Improvements:** Pause selected background operations while moving through Cinematic views, then resume them after focus becomes stable to reduce lag.
+- **Stable Focus Loading:** Load Metadata and Artwork after the selection becomes stable instead of performing heavy work during fast navigation.
+- **Cache Cleanup & Stability:** Improved handling of cache and temporary files with fewer conflicts between different sources.
+- **Python 3 Support:** Support modern Enigma2 images running Python 3.12, 3.13, 3.14, and 3.15 depending on the receiver environment.
+- **Installer Dependency Checks:** The installer checks required libraries and validates the receiver environment before installation.
+- **Automatic GUI Restart:** Automatically restart Enigma2 after installation or update when required.
