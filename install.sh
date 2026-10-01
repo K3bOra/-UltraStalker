@@ -1,14 +1,14 @@
 #!/bin/sh
-# Ultra Stalker Final V9.1.2 - Public Online Installer
+# Ultra Stalker Final V9.1.3 - Public Online Installer
 # Enigma2 / Python 3.12, 3.13, 3.14, 3.15
 
 set -u
 
 PLUGIN_PKG="enigma2-plugin-extensions-ultrastalker"
-TARGET_VERSION="9.1.2"
+TARGET_VERSION="9.1.3"
 IPK_NAME="UltraStalker_V7_UPDATE.ipk"
 IPK_URL="https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/${IPK_NAME}"
-EXPECTED_SHA256="10e27e9eecd797894113c1d19f8c802dd40b5b82a5dd404f9c842f91ffe654cb"
+EXPECTED_SHA256="ef002135a3c0314c6092773c40f7df5d1e84753071b749977416c6f069d0f6d7"
 TMP_IPK="/tmp/${IPK_NAME}"
 TMP_PART="${TMP_IPK}.part"
 OPKG_LOG="/tmp/ultrastalker-opkg-update.log"
@@ -45,7 +45,7 @@ fetch_package() {
 }
 
 say "=============================================="
-say "       Ultra Stalker Final V9.1.2"
+say "       Ultra Stalker Final V9.1.3"
 say "              Online Installer"
 say "=============================================="
 
@@ -93,7 +93,7 @@ fi
 "$PYBIN" -c 'from PIL import Image' >/dev/null 2>&1 || fail "Python Pillow is unavailable."
 "$PYBIN" -c 'import twisted; from twisted.web.client import Agent' >/dev/null 2>&1 || fail "Python Twisted is unavailable."
 
-say "[2/5] Downloading Ultra Stalker V9.1.2..."
+say "[2/5] Downloading Ultra Stalker V9.1.3..."
 fetch_package || fail "Download failed."
 
 SIZE="$(wc -c < "$TMP_IPK" 2>/dev/null || echo 0)"
@@ -122,7 +122,7 @@ INSTALLED_VERSION="$(printf '%s\n' "$STATUS" | awk -F': ' '/^Version:/ {print $2
 say "[5/5] Installation verified."
 say ""
 say "=============================================="
-say " Ultra Stalker Final V9.1.2 installed correctly."
+say " Ultra Stalker Final V9.1.3 installed correctly."
 say " Enigma2 restart is handled by the package."
 say "=============================================="
 sync 2>/dev/null || true
