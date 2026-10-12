@@ -1,8 +1,8 @@
 {
-  "version": "9.2",
-  "name": "Ultra Stalker Final V9.2",
+  "version": "9.2.1",
+  "name": "Ultra Stalker Final V9.2.1",
   "ipk": "https://github.com/K3bOra/-UltraStalker/releases/download/v10.0.60/UltraStalker_V7_UPDATE.ipk",
-  "sha256": "28f3e10e8565a190715835a9fbcf939608b4ceac13ebb9d2e9d0dfb2724659c0",
+  "sha256": "4ab35d483e471f269aab4220fea7dcaa7f84994ad2aa52f671f365912e0f01e9",
   "notes": "• New luxury look: Home-style gradient cards on every screen\n• Redesigned Player: glass info bar, new progress bar with buffer line\n• Translated text centred in Player chips and keys, all languages\n• Premium Web pages for phone and PC with Home-style cards\n• Stability fixes and smoother performance",
   "notes_i18n": {
     "en": "• New luxury look: Home-style gradient cards on every screen\n• Redesigned Player: glass info bar, new progress bar with buffer line\n• Translated text centred in Player chips and keys, all languages\n• Premium Web pages for phone and PC with Home-style cards\n• Stability fixes and smoother performance",
